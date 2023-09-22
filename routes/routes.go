@@ -9,7 +9,7 @@ import (
 )
 
 // SetupRoutes는 애플리케이션의 라우팅을 설정합니다.
-func SetupRoutes(router *gin.Engine) {
+func UserRoute(router *gin.Engine) {
 	// 사용자 관련 라우트 설정
 	userRoutes := router.Group("/users")
 	{
