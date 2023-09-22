@@ -11,8 +11,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func ConnectDB() *mongo.Client {
+var UserCollection *mongo.Collection
+
+func InitializeDB() *mongo.Client {
+
 	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("DB_URL")))
+	// client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017/golangDB"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,15 +32,9 @@ func ConnectDB() *mongo.Client {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	UserCollection = client.Database(os.Getenv("DB_NAME")).Collection("users")
+
 	fmt.Println("Connected to MongoDB")
 	return client
-}
-
-// Client instance
-var DB *mongo.Client = ConnectDB()
-
-// getting database collections
-func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-	collection := client.Database("golangAPI").Collection(collectionName)
-	return collection
 }
