@@ -10,8 +10,11 @@ import (
 
 // GetUsers는 모든 사용자를 가져와 응답합니다.
 func GetUsers(c *gin.Context) {
-	// 사용자 데이터를 가져오는 로직
-	users := []models.User{} // 예시: User 구조체 사용
+	users, err := models.FindAllUsers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error fetching users"})
+		return
+	}
 
 	c.JSON(http.StatusOK, users)
 }
