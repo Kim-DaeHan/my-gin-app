@@ -19,7 +19,7 @@ func TestGetUsers(t *testing.T) {
 
 	// 라우터 생성
 	router := gin.New()
-	router.GET("/users", controllers.GetUsers) // 테스트할 컨트롤러 사용
+	router.GET("/users", controllers.GetAllUser) // 테스트할 컨트롤러 사용
 
 	// GET /users 요청을 수행
 	req, err := http.NewRequest("GET", "/users", nil)
